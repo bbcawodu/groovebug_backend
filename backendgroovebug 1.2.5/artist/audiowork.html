@@ -1,0 +1,152 @@
+<!--
+
+This template is used by the artist news handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Groovebug Audio Work</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+
+
+
+</head>
+
+
+
+<body class="video">
+<br>
+<h1>Groovebug Audio Work</h1>
+<br><br>
+<form name='searchform' action='/artist/audiowork' method='get'>
+Enter an artist to search for: <input type='text' name='artist'>
+  <input type='submit' value='Search'>
+</form>
+
+{% if artist %}
+    <div class="container">
+	<div class="videospecs">&nbsp;</div>
+	<font SIZE="+2"><b>{{artist}}</b></font>
+	<div class="content">
+	</div>
+	</div>
+{% endif %}	
+{% if error %}
+    <div class="container">
+	<div class="videospecs">&nbsp;</div>
+	
+	<b> {{ error|urlize|linebreaksbr }} </b>
+	
+	</div>
+
+{% endif %}
+{% if audio %}
+	
+	{% for entry in audio %}
+
+		
+		<div class="container">
+		<div class="content" style="margin:auto; width:25%;">
+		
+		<div class="videospecs">&nbsp;</div>
+		<table border="1">
+		<tr>
+		<td>
+		<form name='audiodeleteform' action='/artist/audioredirect' method='post' ENCTYPE="multipart/form-data">
+		<table>
+		<tr>
+		<td>
+		<a href="{{entry.imgUrl}}" target="_blank">
+		<img src= "{{ entry.thumbUrl }}" width=100% />
+		<br/>
+		<b>{{entry.title}}</b>
+		<br/>
+		<b>Track #{{entry.trackNum}}</b>
+		<br/>
+		<b>{% if audio %}{{entry.album}}{% endif %}</b>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<input type=hidden name='deleteImg' value={{ entry.thumbBlobkey }}>
+		<input type=hidden name='deleteImgFull' value={{ entry.imgBlobkey }}>
+		<input type=hidden name='itemKey' value={{ entry.key }}>
+		</a>
+		<div class="content">
+		<input type=hidden name='artist' value="{{artist}}">
+		<input type=hidden name='artistEnc' value={{artistEnc}}>
+        <button type=submit name='deleteTrack' value={{entry.blobKey}}>Delete This Track</button>
+		</div>
+		</td>
+		</tr>
+		</table>
+		</form>
+		</td>
+		<td>
+		<form name='drawereditform' action='/artist/editdrawer' method='post' ENCTYPE="multipart/form-data">
+		<table>
+		<tr>
+		<td>
+<b>Promo List</b><br>
+<div style="float: center; width: 150px; border: 1px solid white;font-size: 12px">
+{% if entry.PromotedToList %}{% for pentry in entry.PromotedToList %}{{pentry}}<br />{% endfor %}{% endif %}
+</div>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<a href='/artist/editdrawer?editKey={{entry.key}}'>Edit Promo List</a>
+		</td>
+		</tr>
+		</table>
+		</form>
+		</td>
+		</tr>
+		<tr>
+		<td>
+		<embed type="application/x-shockwave-flash" src="http://www.google.com/reader/ui/3523697345-audio-player.swf" quality="best" flashvars="audioUrl={{entry.url}}" width="400" height="27"></embed>
+		</td>
+		</tr>
+		</table>
+		</div>
+		</div>
+		
+	{% endfor %}
+
+{% endif %}
+    <div class="container">
+	<form name='audioform' action={{upload}} method='post' ENCTYPE="multipart/form-data">
+	<div class="videospecs">&nbsp;</div>
+	<input type=hidden name='artist' value="{{artist}}">
+	<input type=hidden name='artistEnc' value={{artistEnc}}>
+	Song Title: <input type='text' name='songtitle'>
+	<br>
+	Track Number: <input type='text' name='tracknum' size="4">
+	<br>
+	Album Title: <input type='text' name='albumtitle'>
+	<br>
+	Audio File: <INPUT TYPE=file NAME="audiofile">
+	<br>
+	Audio Image: <INPUT TYPE=file NAME="imgfile">
+	<br>
+	Buy URL: <INPUT type='text' NAME="buyurl">
+	<br>
+    <button type=submit name='addTrack' value='addTrack'>Add Track</button>
+	
+	<div class="content">
+	</div>
+	</form>
+	</div>
+
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Bio Work</title>
+<link type="text/css" rel="stylesheet" href="static/css/main.css" media="all">
+</head>
+
+<body>
+<b>User: {{ user }} <a href={{ logoutUrl }} target="_self">Sign Out</a><br/><hr/></b>
+{% block title %}{{ currAction }}{% endblock %}
+{% block content %}
+<form name='searchform' action='/artist/biowork' method='get'>
+    Enter an artist to search for: <input type='text' name='q'>
+  <input type='submit' value='Search'>
+</form>
+<div class='biopreview'>
+<form name='bioform' action="/artist/bioredirect" method=post ENCTYPE="multipart/form-data">
+<b>Artist Bio:</b><br/>
+<b>{% if query %}{{ query }}{% endif %}</b><br/>
+<input type=hidden name='artist' value={{ queryenc }}>
+<textarea name="bioTxt" rows="20" cols="80">
+{{ bio }}
+</textarea>
+<br/><br/>
+<a href="{{ bioUrl }}" target="_blank">
+Artist URL: </a><input type='text' name='bioUrl' value={{ bioUrl }}>
+<br/><br/>
+<button type=submit>Save to DB!</button>
+</form>
+</div>
+{% endblock %}
+
+</body>
+</html>

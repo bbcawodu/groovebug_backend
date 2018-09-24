@@ -1,0 +1,92 @@
+<!--
+
+This template is used by the artist bio handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<style>
+body {
+font-family:"lucida grande",lucida,tahoma,helvetica,arial,sans-serif!;
+color: #FFFFFF;
+background: transparent;
+margin: 0;
+padding: 0;
+}
+.hastweet {
+background: transparent;
+font-size:16px;
+font-family:"lucida grande",lucida,tahoma,helvetica,arial,sans-serif;
+color: #f6ee09;
+text-align:center;
+position:absolute;
+left:0px;
+width:375px;
+height:50px;
+padding:10px 0px
+}
+
+.notweet {
+background-color:rgba(0,0,0,0.5);
+font-size:16px;
+font-family:"lucida grande",lucida,tahoma,helvetica,arial,sans-serif;
+color: #f6ee09;
+text-align:center;
+position:absolute;
+left:0px;
+width:375px;
+height:50px;
+padding:10px 0px
+}
+</style>
+<script src="http://widgets.twimg.com/j/2/widget.js"></script>
+<!--
+<script src="static/twidget.js"></script>
+-->
+<script type="text/javascript" src="static/changeDiv.js"></script> 
+
+
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'profile',
+  interval: 10000,
+  width: 375,
+  height: 'auto; -arnom-nl: 0',
+  theme: {
+    shell: {
+      background: 'rgba(33,33,33,0.5)',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: 'rgba(0,0,0,0.5)',
+      color: '#ffffff',
+      links: '#f6ee09'
+    }
+  },
+  features: {
+    scrollbar: false,
+    loop: true,
+    live: true,
+    behavior: 'all'
+  }
+}).render().setUser('{{twitterID}}').start();
+</script>
+
+</head>
+
+
+
+<body>
+<div style="min-height: 50" id="altTweet" class="notweet">
+  <!-- all the tweet divs go here -->
+  <p id="altMsg">{{altMsg}}</p>
+  <!-- <span style="z-index: -1; position: absolute">No tweets available</span> -->
+</div>
+</body>
+</html>

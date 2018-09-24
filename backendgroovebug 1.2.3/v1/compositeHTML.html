@@ -1,0 +1,161 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" width="100%">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ compPage.title }}</title>
+<meta name = "viewport" content = "width = 600, user-scalable = no">
+<style type="text/css">
+body,td,th {
+    font-family: Helvetica, sans-serif;
+	font-size: 16px;
+	color: #FFFFFF;
+	background: transparent;
+	line-height: 1.3em;
+	font-weight: normal;
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+    padding: 0;
+}
+a:link {
+     color: #FFFFFF;
+     text-decoration: none;
+}
+a:hover {
+     text-decoration: none;
+     color: #FFFF00;
+}
+a:active {
+     text-decoration: none;
+     color: #AAAAAA;
+}
+.newsheading {
+	font-size: 36px;
+	font-family: Arial, Helvetica, sans-serif;
+	font-weight: bold;
+	margin-bottom: 10px;
+	margin-top: 32px;
+}
+.newsdate {
+	text-align: right;
+}
+.newstitle {
+	font-size: 18px;
+	font-family: Helvetica, Arial, sans-serif;
+	line-height: 1.1em;
+}
+.newssource {
+	color: #f7ed38;
+	font-size: 16px;
+}
+a.moreinfo {
+	color: #f7ed38;
+	font-weight: bold;
+}
+.container {
+    margin: 0 auto; margin-bottom: 1em; /* the auto margins (in conjunction with a width) center the page */
+	padding: 1em; /* remember that padding is the space inside the div box and margin is the space outside the div box */
+	text-align: left; /* this overrides the text-align: center on the body element. */
+	position:relative;
+	overflow:hidden;
+}
+
+.container .transparency {
+    opacity:0.5;
+    background-color:#000000;
+    width:1500px;
+    height:15000px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:-1;
+}
+
+.container .videospecs {
+	margin-bottom: 1em;
+	opacity:0.5;
+	background-color:#000000;
+	width:36000px;
+	height:1500px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:-1;
+}
+
+.container .content {
+	margin-top: 0.5em;
+	position:relative;
+	color:#FFFFFF;
+}
+
+.news {
+    background: transparent url('http://backendgroovebug.appspot.com/htmlimages/arrow.png') no-repeat 99% 50%;
+}
+
+.newserror {
+	max-height: 25em;
+    padding-right: 50px;
+}
+
+.video {
+	max-width: 500px;
+}
+</style>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+</head>
+
+<body>
+<table width="600" border="0" cellspacing="0" cellpadding="0">
+  <tr>
+    <td width="600" height="200" align="center" valign="top"><table width="600" border="0" align="center" cellpadding="0" cellspacing="0" background="{{ compPage.graphicUrl }}"
+    bgcolor="#000000">
+      <tr>
+        <td height="200" valign="bottom">&nbsp;</td>
+      </tr>
+    </table></td>
+  </tr>
+  <tr>
+    <td><table width="600" border="0" cellpadding="5" cellspacing="5" bgcolor="#000000">
+      <tr>
+        <td>
+		  <br/>
+		  {{ compPage.summary }} <br/>
+          {% if compPage.summaryUrl %}
+		    <br/> <a class="moreinfo" href="{{ compPage.summaryUrl }}">TAP HERE FOR MORE ON {{ compPage.title }}</a>
+		  {% endif %}
+		</td>
+      </tr>
+    </table></td>
+  </tr>
+  
+ 
+{% if compPage.newsArticles %}
+  <tr>
+    <td><table width="600" border="0" cellpadding="5" cellspacing="5" bgcolor="#000000">
+      <tr>
+        <td><p class="newsheading">NEWS</p>
+        
+		{% for entry in compPage.newsArticles %} 
+        <a href="{{ entry.url }}" target="_blank">
+		<div class="container news">
+            
+            <div style="float:right">{{ entry.date }}</div>
+            <span class="newstitle">{{ entry.title }}</span><br/>     		
+			<br /><b>From: <span class="newssource">{{ entry.articleSource }}</span></b><br/>
+		
+		<br/>
+		{{ entry.summary }}
+		<br/>
+		<b> Tap for full story</b>
+		</div>
+		</a>	
+        {% endfor %}
+		
+		</td>
+	</td>
+      </tr>
+    </table></td>
+  </tr>
+{% endif %}
+</table>
+</body>
+</html>

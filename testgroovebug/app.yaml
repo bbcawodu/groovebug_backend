@@ -1,0 +1,295 @@
+application: testgroovebug
+version: 1
+runtime: python
+api_version: 1
+
+
+
+builtins:
+- remote_api: on
+- datastore_admin: on
+- deferred: on
+
+
+
+
+
+handlers:
+######################################################
+### These handlers are responsible for mapping
+### static files to urls
+### (NOTE)
+### we need to do something about 'htmlimages'
+
+- url: /favicon\.ico
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon\.ico
+  
+- url: /static
+  static_dir: static
+  
+- url: /v1/static
+  static_dir: v1/static
+  
+- url: /v2/static
+  static_dir: v2/static
+  
+- url: /artist/static
+  static_dir: artist/static
+  
+- url: /htmlimages/(.*\.(gif|png|jpg))
+  static_files: static/\1
+  upload: static/(.*\.(gif|png|jpg))
+######################################################
+
+
+
+######################################################
+### These handlers are responsible for mapping
+### python scripts to urls for our API calls
+- url: /v1/magazine*
+  script: v1/MagazineHandler.py 
+
+- url: /v1/videos*
+  script: v1/VideoHandler.py
+  
+- url: /v1/music.*
+  script: v1/MusicHandler.py
+
+- url: /v1/news*
+  script: v1/NewsHandler.py
+  
+- url: /v1/bio*
+  script: v1/BioHandler.py
+
+- url: /v1/similar*
+  script: v1/SimilarHandler.py
+
+- url: /v1/backgroundsdelworker*
+  script: v1/BackgroundHandler.py
+  
+- url: /v1/backgrounds*
+  script: v1/BackgroundHandler.py
+
+- url: /v1/imgatt*
+  script: v1/ImgAttHandler.py  
+  
+- url: /v1/verify*
+  script: v1/ArtistVerificationHandler.py
+
+- url: /v1/home*
+  script: v1/HomeHandler.py 
+
+- url: /v1/concerts*
+  script: v1/ConcertHandler.py   
+
+- url: /v1/compositehtml.*
+  script: v1/CompositeHandler.py
+
+- url: /v1/thumbnailscomposite.*
+  script: v1/ImageServingHandler.py
+  
+- url: /v1/composite*
+  script: v1/CompositeHandler.py
+  
+- url: /v1/twitter*
+  script: v1/TweetHandler.py
+  
+- url: /v1/twidget*
+  script: v1/TweetHandler.py
+  
+- url: /v1/twidgetpr*
+  script: v1/TweetHandler.py
+  
+- url: /v1/correctedartistcrawler
+  script: v1/CorrectedArtistCrawler.py
+  login: admin
+  
+- url: /v1/similarartistcrawler
+  script: v1/SimilarArtistCrawler.py
+  login: admin
+  
+- url: /v1/newscrawler
+  script: v1/NewsCrawler.py
+  login: admin
+  
+- url: /v1/biocrawler
+  script: v1/BioCrawler.py
+  login: admin
+  
+- url: /v1/facebookcrawler
+  script: v1/FacebookCrawler.py
+  login: admin
+  
+- url: /v1/fbfriendtile*
+  script: v2/FacebookFriendTileHandler.py
+######################################################
+
+
+
+######################################################
+### These handlers are responsible for mapping
+### python scripts to urls for our API calls
+### VERSION 2 of API
+- url: /v2/home*
+  script: v2/HomeHandler.py
+  
+- url: /v2/featured*
+  script: v2/FeaturedHandler.py
+  
+- url: /v2/friend*
+  script: v2/FacebookFriendTileHandler.py
+  
+- url: /v2/friendsworker*
+  script: v2/FacebookFriendsHandler.py 
+  
+- url: /v2/friends*
+  script: v2/FacebookFriendsHandler.py 
+  
+- url: /v2/fbrecentactivity*
+  script: v2/FacebookFriendTileHandler.py
+  
+- url: /v2/fbfriendbackgrounds*
+  script: v2/FriendBackgroundHandler.py
+######################################################
+
+
+
+######################################################
+### These handlers are responsible for mapping
+### python scripts to urls for our content editing
+- url: /artist
+  script: artist/ArtistBackendHandler.py
+  login: admin
+  
+- url: /artist/composite-manager
+  script: artist/CompositeManagerHandler.py
+  login: admin
+  
+- url: /artist/newcomposite
+  script: artist/CompositeManagerHandler.py
+  login: admin
+
+- url: /artist/redirectcomposite
+  script: artist/CompositeManagerHandler.py
+  login: admin
+  
+- url: /artist/editcomposite
+  script: artist/CompositeManagerHandler.py
+  login: admin
+  
+- url: /artist/blobwork*
+  script: artist/BlobHandler.py
+  login: admin
+  
+- url: /artist/blobdelete*
+  script: artist/BlobHandler.py
+  login: admin
+  
+- url: /artist/imagework*
+  script: artist/ImageWork.py
+  login: admin
+  
+- url: /artist/imageredirect*
+  script: artist/ImageWork.py
+  login: admin
+  
+- url: /artist/biowork*
+  script: artist/BioWork.py
+  login: admin
+  
+- url: /artist/bioredirect*
+  script: artist/BioWork.py
+  login: admin
+  
+- url: /artist/newswork*
+  script: artist/NewsWork.py
+  login: admin
+  
+- url: /artist/newsredirect*
+  script: artist/NewsWork.py
+  login: admin
+  
+- url: /artist/videowork*
+  script: artist/VideoWork.py
+  login: admin
+  
+- url: /artist/videoredirect*
+  script: artist/VideoWork.py
+  login: admin
+  
+- url: /artist/videoaddredirect*
+  script: artist/VideoWork.py
+  login: admin
+  
+- url: /artist/audiowork*
+  script: artist/AudioWork.py
+  login: admin
+  
+- url: /artist/audioredirect*
+  script: artist/AudioWork.py
+  login: admin
+  
+- url: /artist/audioserve*
+  script: artist/AudioWork.py
+  
+- url: /artist/redirectdrawer*
+  script: artist/AudioWork.py
+  login: admin
+  
+- url: /artist/editdrawer*
+  script: artist/AudioWork.py
+  login: admin
+  
+- url: /artist/socialwork*
+  script: artist/SocialWork.py
+  login: admin
+  
+- url: /artist/socialredirect*
+  script: artist/SocialWork.py
+  login: admin
+  
+- url: /artist/statwork*
+  script: artist/StatWork.py
+  login: admin
+  
+- url: /artist/missingbuy*
+  script: artist/missingBuyHandler.py
+  
+- url: /artist/facebookstatwork
+  script: artist/FacebookStatHandler.py
+######################################################
+
+
+
+######################################################
+### These handlers are responsible for mapping
+### python scripts to urls for our home page root
+- url: /test.*
+  login: admin
+  script: gaeunit.py
+  
+- url: /admin/.*
+  script: $PYTHON_LIB/google/appengine/ext/admin
+  login: admin
+  
+- url: /
+  script: Index.py
+  secure: always
+  
+- url: /.*
+  script: Error404Handler.py
+######################################################
+
+
+  
+admin_console:
+  pages:
+  - name: My Console
+    url: /admin/interactive
+  - name: My Memcache
+    url: /admin/memcache
+  - name: My XMPP
+    url: /admin/xmpp
+  - name: My Inbound Mail
+    url: /admin/inboundmail

@@ -1,0 +1,30 @@
+body {
+    font-family: Helvetica, sans-serif;
+	color: #FFFFFF;
+	text-align: center;
+	background-color: #000000;
+	font-size:100%; /* Firefox, Chrome, and Safari all can resize text using pixels, but not IE. Use this and em to allow resize in all browsers */
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+    padding: 0;
+}
+
+a:link {color:#F6EE09; text-decoration:none;}
+a:visited {color:#F6EE09; text-decoration:none;}
+a:active {color:#F6EE09; text-decoration:none;}
+
+
+.FourOFour {
+    font-size:4em;
+}
+
+.container .content {
+	margin-top: 0.5em;
+	position:relative;
+	color:#FFFFFF;
+}
+
+table.center {
+    margin-left:auto; 
+    margin-right:auto;
+  }
+

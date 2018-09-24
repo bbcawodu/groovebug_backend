@@ -1,0 +1,66 @@
+<!--
+
+This template is used by the artist bio handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Groovebug Biography</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+
+
+
+</head>
+
+
+
+<body>
+<div class="container">
+<div class="transparency">&nbsp;</div>
+
+
+
+{% if bio %}
+	<b> From: {{bio.source}} </b><br/>
+	{{bio.text}}<br/>
+	
+	
+	
+	{% if bio.url %}
+		<a href="{{bio.url}}" target="_blank">
+		
+		
+		
+		<br/><b>Tap here for full article</b>
+		
+		
+		
+		</a>
+	{% endif %}
+	
+	
+	
+{% else %}
+	{% if link %}
+	<a href="{{ link }}" target="_blank">
+	<b> {{error}} </b>
+	</a>
+	{% else %}
+	<b> {{error}} </b>
+	{% endif %}
+{% endif %}
+
+
+
+</div>
+</body>
+</html>

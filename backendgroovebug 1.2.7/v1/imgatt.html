@@ -1,0 +1,62 @@
+<!--
+
+This template is used in the Image Attribution.
+
+ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html>
+<head>
+<script type="text/javascript">var NREUMQ=NREUMQ||[];NREUMQ.push(["mark","firstbyte",new Date().getTime()]);</script>
+<style type="text/css" media="screen">
+body{background-color: #666; color: #fff; font-family: Helvetica; font-size: 80%; max-width: 400} a {color: #fff;} .row {margin: .5em}
+</style>
+<title></title>
+</head>
+
+<body>
+{% if error %}
+    <div class="container">
+	<b> {{ error|urlize|linebreaksbr }} </b>
+	<br/>
+	</div>
+{% else %}
+<div style="float:left; margin-right:12px">
+<img src="{{ source }}" width="100" height="100">
+</div>
+<div class="row">
+	<strong>Source page:</strong>
+	{% if sourcepage %}
+		<a href="{{ sourcepage }}">{{ sourcepagetext }}</a>
+	{% else %}
+		{{ sourcepagetext }}
+	{% endif %}
+</div>
+<div class="row">
+	<strong>Direct link:</strong> <a href="{{ directlink }}">{{ directlinktext }}</a>
+</div>
+<div class="row">
+	<strong>Attribution:</strong> {{ attribution }}
+</div>
+<p>
+	<br>
+</p>
+<div class="row">
+	<strong></strong>{{ takedown }}
+</div>
+{% endif %}
+<script type="text/javascript">
+if (!NREUMQ.f) { NREUMQ.f=function() {
+NREUMQ.push(["load",new Date().getTime()]);
+var e=document.createElement("script");
+e.type="text/javascript";e.async=true;e.src="https://d1ros97qkrwjf5.cloudfront.net/28/eum/rum-staging.js";
+document.body.appendChild(e);
+if(NREUMQ.a)NREUMQ.a();
+};
+NREUMQ.a=window.onload;window.onload=NREUMQ.f;
+};
+NREUMQ.push(["nrfj","beacon-1.newrelic.com","9dfe439095",8763,"Il9dRhNbCVtVQhgXQgBTVkFOUApURV1SCkYSH1ddFloJWFFU",0,30,new Date().getTime(),"","5a85133ee40bd053","","",""])
+</script>
+</body>
+</html>

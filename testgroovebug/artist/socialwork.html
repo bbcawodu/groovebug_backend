@@ -1,0 +1,100 @@
+<!--
+
+This template is used by the artist news handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Groovebug Social Media Work</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+
+</head>
+
+<body class="video">
+<br/>
+<h1>Groovebug Social Media Work</h1>
+<br/>
+<form name='searchform' action='/artist/socialwork' method='get'>
+Enter an artist to search for: <input type='text' name='artist'>
+  <input type='submit' value='Search'>
+</form>
+{% if artist %}
+    <div class="container">
+	<div class="content">
+	<font SIZE="+2" COLOR="#f6ee09"><b>{{artist}}</b></font>
+	</div>
+	</div>
+{% endif %}	
+{% if error %}
+    <div class="container">
+	<b> {{ error|urlize|linebreaksbr }} </b>
+	<br/>
+	</div>
+{% endif %}
+{% if social %}	
+    <div class="container">
+	<form name='socialform' action='/artist/socialredirect' method='post' ENCTYPE="multipart/form-data">
+	<div class="videospecs">&nbsp;</div>
+	<input type=hidden name='artist' value="{{artist}}">
+	<input type=hidden name='artistEnc' value={{artistEnc}}>
+	<table CELLPADDING="2" CELLSPACING="2" ALIGN=center>
+	<tr>
+	<td align=right><font COLOR="#f6ee09">Official Website:</font><br/></td><td><input type='text' name='website' value="{{social.website}}" size="50"><br/></td>
+	</tr>
+	<tr>
+	<td align=right ><font COLOR="#f6ee09">Twitter:</font><br/></td><td align=left><input type='text' name='twitter' value="{{social.twitter}}" size="20"><br/></td>
+	</tr>
+	<tr>
+	<td align=right><font COLOR="#f6ee09">Facebook:</font><br/></td><td><input type='text' name='facebook' value="{{social.facebook}}" size="50"><br/></td>
+	</tr>
+	<tr>
+	<td align=right><font COLOR="#f6ee09">Myspace:</font><br/></td><td><input type='text' name='myspace' value="{{social.myspace}}" size="50"><br/></td>
+	</tr>
+	<tr>
+	<td align=right><font COLOR="#f6ee09">Soundcloud:</font><br/></td><td><input type='text' name='soundcloud' value="{{social.soundcloud}}" size="50"><br/></td>
+	</tr>
+	<tr>
+	<td align=right><font COLOR="#f6ee09">Wikipedia:</font><br/></td><td><input type='text' name='wikipedia' value="{{social.wikipedia}}" size="50"><br/></td>
+	</tr>
+	<tr>
+	<td align=right><font COLOR="#f6ee09">You Tube:</font><br/></td><td><input type='text' name='youtube' value="{{social.youtube}}" size="50"><br/></td>
+	</tr>
+	<tr>
+	<td align=right><font COLOR="#f6ee09">Last.fm:</font><br/></td><td><input type='text' name='lastfm' value="{{social.lastfm}}" size="50"><br/></td>
+	</tr>
+	<tr>
+	<td align=right><font COLOR="#f6ee09">Tumblr:</font><br/></td><td><input type='text' name='tumblr' value="{{social.tumblr}}" size="50"><br/></td>
+	</tr>
+	<tr>
+	<td align=right><font COLOR="#f6ee09">Purevolume:</font><br/></td><td><input type='text' name='purevolume' value="{{social.purevolume}}" size="50"><br/></td>
+	</tr>
+	<tr>
+	<td></td>
+	<td>
+	<br/>
+    <button type=submit name='updateSocial' value='update'>update</button>
+	</td>
+	</tr>
+	</table>
+	</form>
+	</div>
+{% else %}
+	{% if artist %}
+	<form name='getsocialform' action='/artist/socialredirect' method='post' ENCTYPE="multipart/form-data">
+    <div class="container">
+	<div class="videospecs">&nbsp;</div>
+	<button type=submit name='getSocial' value="{{artist}}">Get Social</button>
+	</div>
+	</form>
+	{% endif %}
+{% endif %}
+
+</body>
+</html>

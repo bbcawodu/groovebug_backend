@@ -1,0 +1,65 @@
+body {
+    font-family: Helvetica, sans-serif;
+	color: #FFFFFF;
+	background: transparent;
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+    padding: 0;
+}
+
+a:link {color:#FFFFFF; text-decoration:none;}
+a:visited {color:#CCCCCC; text-decoration:none;}
+a:active {color:#AAAAAA; text-decoration:none;}
+
+.container {
+    margin: 0 auto; margin-bottom: 1em; /* the auto margins (in conjunction with a width) center the page */
+	padding: 1em; /* remember that padding is the space inside the div box and margin is the space outside the div box */
+	text-align: left; /* this overrides the text-align: center on the body element. */
+	position:relative;
+	overflow:hidden;
+}
+
+.container .transparency {
+    opacity:0.5;
+    background-color:#000000;
+    width:1500px;
+    height:15000px;
+    position:absolute;
+    top:0px;
+    left:0px;
+    z-index:-1;
+}
+
+.container .videospecs {
+	margin-bottom: 1em;
+	opacity:0.5;
+	background-color:#000000;
+	width:36000px;
+	height:1500px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:-1;
+}
+
+.container .content {
+	margin-top: 0.5em;
+	position:relative;
+	color:#FFFFFF;
+}
+
+.news {
+    background: transparent url('http://backendgroovebug.appspot.com/htmlimages/arrow.png') no-repeat 99% 50%;
+}
+
+.composite{
+	text-align: center;
+}
+
+.newserror {
+	max-height: 25em;
+    padding-right: 50px;
+}
+
+.video {
+	max-width: 500px;
+}

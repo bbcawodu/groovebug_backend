@@ -1,0 +1,18 @@
+#Fri Jan 20 11:12:09 CST 2012
+eclipse.preferences.version=1
+encoding//tests/BackgroundHandlerTests.py=utf-8
+encoding//tests/BioHandlerTests.py=utf-8
+encoding//tests/CompositeHandlerTests.py=utf-8
+encoding//tests/FacebookFriendsHandlerTests.py=utf-8
+encoding//tests/FeaturedHandlerTests.py=utf-8
+encoding//tests/HomeHandlerTests.py=utf-8
+encoding//tests/MagazineHandlerTests.py=utf-8
+encoding//tests/MusicHandlerTests.py=utf-8
+encoding//tests/NewsHandlerTests.py=utf-8
+encoding//tests/SimilarHandlerTests.py=utf-8
+encoding//tests/TwitterHandlerTests.py=utf-8
+encoding//tests/VideoHandlerTests.py=utf-8
+encoding//tests/home\ post.json=UTF-8
+encoding/ArtistVerifyTester.py=utf-8
+encoding/DataModels.py=utf-8
+encoding/echonestlib.py=utf-8

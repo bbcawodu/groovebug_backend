@@ -1,0 +1,182 @@
+<!--
+
+This template is used by the composite editor pages.
+It loads the CSS from directly from our backend
+
+ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
+<script type="text/javascript">
+function doit(){
+var frmobj=document.forms["compositeform"]["contentType"];
+var t=frmobj[frmobj.selectedIndex].text;
+if(t=="HTML"){
+      document.getElementById('userHTML').style.display="";
+	  document.getElementById('inputUser').style.display="none";
+      }
+else if(t=="Image and Summary"){
+      document.getElementById('userHTML').style.display="none";
+	  document.getElementById('inputUser').style.display="";
+      }
+else if(t=="Select"){
+      document.getElementById('inputUser').style.display="none";
+	  document.getElementById('userHTML').style.display="none";
+      }
+
+}
+
+function s(obj){
+var frm=obj.form;
+var t=obj[obj.selectedIndex].text;
+if(t=="HTML"){
+      document.getElementById('userHTML').style.display="";
+	  document.getElementById('inputUser').style.display="none";
+      }
+else if(t=="Image and Summary"){
+      document.getElementById('userHTML').style.display="none";
+	  document.getElementById('inputUser').style.display="";
+      }
+else if(t=="Select"){
+      document.getElementById('inputUser').style.display="none";
+	  document.getElementById('userHTML').style.display="none";
+      }
+
+}
+
+$(function() {
+	doit();
+});
+</script>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ title }}</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+
+
+
+</head>
+<body class="oneColElsCtr">
+<div class="container composite">
+<div class="transparency">&nbsp;</div>
+<b>User: {{ user }} <a href={{ logoutUrl }} target="_self">Sign Out</a><br/><hr/></b>
+<h1>{{ title }}</h1>
+<form name='compositeform' action="/artist/redirectcomposite" method=post ENCTYPE="multipart/form-data">
+<table border="1" class = 'center'>
+<tr>
+<td> <b>Title:</b> </td>
+<td><input type=text name='title' {% if compPage %}value="{{ compPage.title }}"{% endif %} maxlength="1000"></td>
+</tr>
+<tr>
+<td><b>Composite Header Choice: </b></td>
+<td>{{ compPage.compositeType }}</td>
+</tr>
+{% if compPage.compPageId %}
+<tr>
+<td><b> Composite ID </b></td> 
+<td>{{ compPage.compPageId }}</td>
+</tr>
+{% endif %}
+<tr>
+<td> <b>Status: </b></td>
+<td>{{ compPage.status }}</td>
+</tr>
+<tr>
+<td> <b>Enter List of artists into box (must be separated by return characters): </b></td>
+<td>
+<textarea name="artistList" rows="20" cols="40">
+{% if compPage %}{{ compPage.artistList }}{% endif %}
+</textarea><br/><br/>
+</td>
+</tr>
+{% if compPage.artistListErrors %}
+<tr>
+<td><b>List of artists that werent found (copy paste them back to the first box to try and verify them again):</b></td>
+<td>
+<textarea name="artistListErrors" rows="20" cols="40">
+{{ compPage.artistListErrors }}
+</textarea><br/>
+</td>
+</tr>
+{% endif %}
+<tr>
+<td><button type=submit name='verify' value='yes'>Verify(Very Cool)</button></td>
+</tr>
+<tr>
+<td><b>Upload composite thumbnail: </b></td>
+<td><INPUT TYPE=file NAME="thumbnail"></td>
+</tr>
+{% if compPage.thumbnailUrl %}
+<tr>
+<td><b>Current Thumbnail: </b></td>
+<td>
+<a href={{ compPage.thumbnailUrl }} target="_blank">Thumbnail</a>
+<input type=hidden name='thumbnailurl' value="{{ compPage.thumbnailUrl }}">
+<button type=submit name='deleteThumbnail' value='yes'>Delete Current Thumbnail</button>
+</td>
+</tr>
+{% endif %}
+<tr>
+<td><b>Select content Type (HTML link OR upload a graphic file and input a summary)</b></td>
+<td>{{ compPage.contentType }}</td>
+</tr>
+</table>
+<span id="userHTML" style="display:none">
+<table border="1" class = 'center'>
+<tr>
+<td><b>URL: </b></td>
+<td><input type=text name='content' {% if compPage %} value="{{ compPage.content }}" {% endif %}></td>
+</tr>
+</table>
+</span>
+<span id="inputUser" style="display:none">
+<table border="1" class = 'center'>
+<tr>
+<td><b>Composite Graphic: </b></td>
+<td><INPUT TYPE=file NAME="graphic"></td>
+</tr>
+{% if compPage.graphicUrl %}
+<tr>
+<td><b>Current Graphic: </b></td>
+<td>
+<a href={{ compPage.graphicUrl }} target="_blank">{{ compPage.graphicUrl }}</a>
+<input type=hidden name='graphicurl' value="{{ compPage.graphicUrl }}">
+<button type=submit name='deleteGraphic' value='yes'>Delete Current Graphic</button><br/>
+</td>
+</tr>
+{% endif %}
+<tr>
+<td><b>Composite Summary:</b></td>
+<td>
+<textarea name="summary" rows="20" cols="80">
+{% if compPage %}{{ compPage.summary }}{% endif %}
+</textarea>
+</td>
+</tr>
+<tr>
+<td><b>Url for additional summary info:</b></td>
+<td><input type=text name='summaryurl' {% if compPage %} value="{{ compPage.summaryUrl }}" {% endif %}></td>
+</tr>
+</table>
+</span>
+<br/><br/>
+{% if compPage.compPageId %}
+<input type=hidden name='compositeid' value="{{ compPage.compPageId }}">
+<input type=hidden name='hasid' value="yes">
+{% endif %}
+<br/><br/><hr/>
+<button type=submit>Submit!</button>
+</form>
+</div>
+
+
+
+</body>
+</html>

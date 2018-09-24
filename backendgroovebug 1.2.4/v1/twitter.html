@@ -1,0 +1,63 @@
+<!--
+
+This template is used by the artist bio handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<script src="static/twidget.js"></script>
+
+<script type="text/javascript">
+
+
+</script>
+
+<script>
+new TWTR.Widget({
+  version: 2,
+  type: 'search',
+  search: '{{searchStr}}',
+  interval: 30000,
+  title: '',
+  subject: '',
+  width: 375,
+  height: 500,
+  theme: {
+    shell: {
+      background: '#333333',
+      color: '#ffffff'
+    },
+    tweets: {
+      background: '#000000',
+      color: '#ffffff',
+      links: '#f6ee09'
+    }
+  },
+  features: {
+    scrollbar: true,
+    loop: true,
+    live: true,
+    behavior: 'all'
+  }
+}).render().start();
+</script>
+
+<!--
+<script type="text/javascript" src="changeDiv.js"></script> 
+ -->
+
+
+</head>
+
+
+
+<body>
+
+</body>
+</html>

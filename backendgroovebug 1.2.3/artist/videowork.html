@@ -1,0 +1,112 @@
+<!--
+
+This template is used by the artist news handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Groovebug Video Work</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+
+
+
+</head>
+
+
+
+<body class="video">
+<br>
+<h1>Groovebug Video Work</h1>
+<br><br>
+<form name='searchform' action='/artist/videowork' method='get'>
+Enter an artist to search for: <input type='text' name='artist'>
+  <input type='submit' value='Search'>
+</form>
+{% if error %}
+	<b> {{ error|urlize|linebreaksbr }} </b>
+{% endif %}
+<form name='videoform' action="/artist/videoredirect" method=post ENCTYPE="multipart/form-data">
+{% if videos %}
+
+	<input type='submit' value='Submit'>
+	<input type=hidden name='artistName' value="{{artist}}">
+	<input type=hidden name='artistEnc' value={{artistEnc}}>
+	<br/>
+	<br/>
+	{% for entry in videos %}
+		
+		
+		<div class="container">
+		<a href="{{entry.link}}" target="_blank">
+		<div class="videospecs">&nbsp;</div>
+		
+		
+		
+		<b>{{entry.title}}</b>
+		
+		
+		</a>
+		<div class="content">
+		<table>
+		<tr>
+		
+		
+		<td><img src= "{{ entry.thumb }}" width="116" height="65" alt="{{entry.title}}" border="0" /></td>
+		
+		<td>
+		<font COLOR="#000000">
+		{% if entry.promoted %}
+		    <INPUT type="checkbox" id=promo{{forloop.counter}} name="unpromote" value={{entry.link}} unchecked=True/> 
+		    <label for=promo{{forloop.counter}}>unPromote This Video</label>
+		{% else %}
+            <INPUT type="checkbox" id=promo{{forloop.counter}} name="promote" value={{forloop.counter}} unchecked=True/> 
+		    <label for=promo{{forloop.counter}}>Promote This Video</label>
+		{% endif %}
+		<input type=hidden name=link{{forloop.counter}} value={{entry.link}}>
+		<input type=hidden name=thumburl{{forloop.counter}} value={{entry.thumb}}>
+		<input type=hidden name=title{{forloop.counter}} value='{{entry.title}}'>
+		
+		<br/><br/>
+		<INPUT type="checkbox" id=exclude{{forloop.counter}} name="exclude" value={{entry.link}} unchecked=True/> 
+		<label for=exclude{{forloop.counter}}>Exclude This Video</label> 
+		</font>
+		</td>
+		
+		
+		</tr>
+		</table>
+		</div>
+		</div>
+		
+	{% endfor %}
+{% endif %}
+</form>
+{% if artist %}
+<div class="container">
+<form name='videoadd' action={{upload}} method='post' ENCTYPE="multipart/form-data">
+<div class="videospecs">&nbsp;</div>
+<input type=hidden name='artistName' value="{{artist}}">
+<input type=hidden name='artistEnc' value={{artistEnc}}>
+Video Title: <input type='text' name='videotitle'>
+<br>
+Video URL: <INPUT TYPE='text' NAME="videourl">
+<br>
+Video Image: <INPUT TYPE=file NAME="videothumb">
+<br>
+<button type=submit name='addVideo' value='addVideo'>Add Video</button>
+	
+</form>
+</div>
+{% endif %}
+
+</body>
+</html>

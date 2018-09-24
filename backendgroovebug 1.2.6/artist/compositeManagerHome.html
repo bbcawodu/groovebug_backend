@@ -1,0 +1,58 @@
+<!--
+
+This template is used by the composite manager home page.
+It loads the CSS from directly from our backend
+
+ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Composite Manager Home</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+<script type="text/javascript">
+function show_confirm(){
+var x=confirm("Are you sure you want to delete this tile?");
+if (x){
+	return true ;
+}
+else{
+	return false ;
+}
+}
+</script>
+</head>
+<body>
+<b>User: {{ user }} <a href={{ logoutUrl }} target="_self">Sign Out</a><hr/></b>
+<h1>{{ title }}</h1>
+<table border="1" class = 'center'>
+<tr>
+<th>Title</th>
+<th>Content Link</th>
+<th>Edit</th>
+<th>Delete</th>
+</tr>
+{% for entry in compositeList %}
+<tr>
+<form action="/artist/editcomposite" method=post>
+<td>{{ entry.title }}</td>
+<td><a href={{ entry.url }}> <b>Content</b> </a></td>
+<td><input type=submit value="Edit!"></td>
+<td><button type=submit name='delete' onclick="return show_confirm()" value='yes'>Delete</button></td>
+<input type=hidden name='compositeid' value="{{ entry.compPageId }}">
+</form>
+</tr>
+{% endfor %}
+<br/>
+</table>
+<hr/>
+<form action="/artist/newcomposite" method=post>
+<b>Add a new Composite page:<b/><input type=submit value="New">
+</form>
+
+
+
+</body>
+</html>

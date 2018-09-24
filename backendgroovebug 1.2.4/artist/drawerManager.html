@@ -1,0 +1,100 @@
+<!--
+
+This template is used by the composite editor pages.
+It loads the CSS from directly from our backend
+
+ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+<script type="text/javascript" src="http://code.jquery.com/jquery-latest.pack.js"></script>
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ title }}</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+
+
+
+</head>
+<body class="oneColElsCtr">
+<div class="container composite">
+<div class="transparency">&nbsp;</div>
+<b>User: {{ user }} <a href={{ logoutUrl }} target="_self">Sign Out</a><br/><hr/></b>
+<form name='backform' action='/artist/redirectdrawer' method=get ENCTYPE="multipart/form-data">
+<button type=submit name='back' value={{ drawerPage.artistEnc }}>Back</button>
+<h1>{{ title }}</h1>
+</form>
+<form name='infoform' action='/artist/redirectdrawer' method=post ENCTYPE="multipart/form-data">
+<h2>{{ drawerPage.artist }}</h2>
+<input type=hidden name='artistEnc' value={{ drawerPage.artistEnc }}>
+<input type=hidden name='artist' value="{{ drawerPage.artist }}">
+{% if drawerPage.drawerItemKey %}
+<input type=hidden name='itemKey' value="{{ drawerPage.drawerItemKey }}">
+<input type=hidden name='hasid' value="yes">
+{% endif %}
+
+<input type=text name='songtitle' {% if drawerPage %}value="{{ drawerPage.title }}"{% endif %} maxlength="1000">
+<button type=submit name='changeTitle' value={{ drawerPage.blobKey }}>Change Title</button>
+<br/><br/>
+<input type=text name='trackNum' {% if drawerPage %}value="{{ drawerPage.trackNum }}"{% endif %} maxlength="4" size="4">
+<button type=submit name='changeNum' value={{ drawerPage.blobKey }}>Change Track #</button>
+<br/><br/>
+<input type=text name='albumtitle' {% if drawerPage %}value="{{ drawerPage.album }}"{% endif %} maxlength="1000">
+<button type=submit name='changeAlbum' value={{ drawerPage.blobKey }}>Change Album</button>
+<br/><br/>
+<input type=text name='buyUrl' {% if drawerPage %}value="{{ drawerPage.buyUrl }}"{% endif %} maxlength="1000">
+<button type=submit name='changeUrl' value={{ drawerPage.blobKey }}>Change Buy Link</button>
+<br/><br/>
+</form>
+<form name='drawerform' action={{upload}} method=post ENCTYPE="multipart/form-data">
+<embed type="application/x-shockwave-flash" src="http://www.google.com/reader/ui/3523697345-audio-player.swf" quality="best" flashvars="audioUrl={{drawerPage.url}}" width="500" height="27"></embed>
+<br/><br/>
+
+Audio File: <INPUT TYPE=file NAME="audiofile"><br/>
+<button type=submit name='changeAudio' value={{ drawerPage.blobKey }}>Replace Audio</button>
+<br/><br/>
+{% if drawerPage.imgUrl %}
+<a href={{ drawerPage.imgUrl }} target="_blank">
+<img src= "{{ drawerPage.imgUrl }}" width=20% />
+</a>
+<br/><br/>
+Image: <INPUT TYPE=file NAME="imgfile">
+<br/><br/>
+<input type=hidden name='imageurl' value="{{ drawerPage.imgUrl }}">
+<input type=hidden name='thumbnailurl' value="{{ drawerPage.thumbnailUrl }}">
+<button type=submit name='changeImage' value={{ drawerPage.imgBlobKey }}>Replace Current Image</button><br/>
+{% else %}
+Image: <INPUT TYPE=file NAME="imgfile">
+<br/>
+<button type=submit name='changeImage' value='yes'>Add Image</button><br/>
+{% endif %}
+<br/><br/>
+<div style="float: right; width: 200px; border: 1px solid white;">
+<b>Similar Artists: </b><br/>
+{% if drawerPage.similarList %}{{ drawerPage.similarList|linebreaksbr }}{% endif %}
+</div>
+<b>Enter List of artists into box (must be separated by return characters): </b><br/>
+<textarea name="artistList" rows="20" cols="40" align=center>
+{% if drawerPage.artistList %}{{ drawerPage.artistList }}{% endif %}
+</textarea><br/><br/>
+{% if drawerPage.artistListErrors %}
+<b>List of artists that werent found (copy paste them back to the first box to try and verify them again):</b><br/>
+<textarea name="artistListErrors" rows="20" cols="40">
+{{ drawerPage.artistListErrors }}
+</textarea><br/>
+{% endif %}
+<button type=submit name='verify' value="{{ drawerPage.drawerItemKey }}">Verify(Very Cool)</button>
+<br/><br/>
+<br/><hr/>
+<button type=submit name='submit' value="{{ drawerPage.drawerItemKey }}">Submit!</button>
+</form>
+</div>
+
+
+
+</body>
+</html>

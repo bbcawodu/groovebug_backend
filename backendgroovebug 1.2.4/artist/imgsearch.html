@@ -1,0 +1,60 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Groovebug Image Work</title>
+<link type="text/css" rel="stylesheet" href="static/css/main.css" media="all">
+</head>
+
+<body>
+<b>User: {{ user }} <a href={{ logoutUrl }} target="_self">Sign Out</a><br/><hr/></b>
+{% block title %}{{ currAction }} - {{ query }}{% endblock %}
+{% block content %}
+<form name='searchform' action='/artist/imagework' method='get'>
+    Enter an artist to search for: <input type='text' name='q'>
+  <input type='submit' value='Search'>
+</form>
+<div class='picpreview'>
+<table CELLPADDING="2" CELLSPACING="2">  
+{% for pic in pics %}
+<form name='imageform' action="/artist/imageredirect" method=post ENCTYPE="multipart/form-data">
+<tr>
+  <td><img src='{{pic.artistThmbUrl}}'></td>
+  <td>
+  <table>
+  <tr><td><b>Replace Image: {{pic.id}}</b><INPUT TYPE=file NAME="replace"></td></tr>
+  <tr>
+  <td><button type=submit name='deleteImage' value="{{pic.key}}">Delete Current Image</button></td>
+  <td><button type=submit name='replaceImage' value="{{pic.key}}">Replace Current Image</button></td>
+  </tr>
+  </table>
+  </td>
+</tr>
+<tr>
+  <td align="center"><div class='piclink'><a href='{{pic.artistImgUrl}}'>Full Image</a></div></td>
+  <td></td>
+</tr>
+</form>
+{% endfor %}
+<tr>
+<form name='addimageform' action="/artist/imageredirect" method=post ENCTYPE="multipart/form-data">
+<td></td>
+<td align="center">
+<b>Add New Image:</b><INPUT TYPE=file NAME="add"></br>
+<button type=submit name='addImage' value='{{ query }}'>Add Now</button>
+</td>
+<td></td>
+</form>
+</tr>
+</table>
+</div>
+<!-- <a href='/'>Browse Artists</a> -->
+
+{% endblock %}
+
+
+
+</body>
+
+
+</html>

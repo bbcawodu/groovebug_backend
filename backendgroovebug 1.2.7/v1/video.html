@@ -1,0 +1,67 @@
+<!--
+
+This template is used by the artist news handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Groovebug Videos</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+
+
+
+</head>
+
+
+
+<body class="video">
+
+{% if videos %}
+	{% for entry in videos %}
+		<a href="{{entry.fulllink}}" target="_blank">
+		<div class="container">
+		<div class="videospecs">&nbsp;</div>
+		
+		
+		
+		<b>{{entry.title}}</b>
+		
+		
+		
+		<div class="content">
+		
+		
+		
+		<img src= "{{ entry.thumb }}" width=100% />
+		
+		
+		
+		</div>
+		</div>
+		</a>
+	{% endfor %}
+{% else %}
+	<div class="container">
+	<div class="videospecs">&nbsp;</div>
+	
+	
+	
+	<b> {{ error|urlize|linebreaksbr }} </b>
+	
+	
+	
+	</div>
+{% endif %}
+
+
+</body>
+</html>

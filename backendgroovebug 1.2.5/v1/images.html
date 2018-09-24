@@ -1,0 +1,113 @@
+<!--
+
+This template is used in the NewsView's UIWebView.
+
+The document will be split at each "split here" comment.
+The resulting pieces will be treated as follows:
+  Piece #0: the header
+  Piece #1: individual story template (to be repeated 0 or more times)
+  Last piece: the footer
+  Other pieces: ignored
+
+ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Untitled Document</title>
+<style type="text/css">
+
+body {
+	font: 100% Verdana, Arial, Helvetica, sans-serif;
+	background: transparent;
+	margin: 0; /* it's good practice to zero the margin and padding of the body element to account for differing browser defaults */
+	padding: 0;
+	color: #FFFFFF;
+	max-width: 500px;
+}
+
+a:link {color:#FFFFFF; text-decoration:none;}
+a:visited {color:#CCCCCC; text-decoration:none;}
+a:active {color:#AAAAAA; text-decoration:none;}
+
+#container
+{
+	margin: 0 auto; margin-bottom: 1em; /* the auto margins (in conjunction with a width) center the page */
+	padding: 1em; /* remember that padding is the space inside the div box and margin is the space outside the div box */
+	text-align: left; /* this overrides the text-align: center on the body element. */
+	position:relative;
+	overflow:hidden;
+}
+
+#container .transparency
+{
+	opacity:0.5;
+	background-color:#000000;
+	width:36000px;
+	height:1500px;
+	position:absolute;
+	top:0px;
+	left:0px;
+	z-index:-1;
+}
+
+#container .content
+{
+	margin-top: 0.5em;
+	position:relative;
+	color:#FFFFFF;
+}
+
+
+
+</style></head>
+
+<body class="oneColElsCtr">
+
+{% if not images %}
+Derp
+{% endif %}
+
+{% for entry in images %}
+
+	{%if forloop.first %}
+		<a href="http://www.google.com" target="_blank">
+		<div id="container">
+			<div class="transparency">&nbsp;</div>
+			<b>Original</b>
+			<div class="content">
+			<img src= "{{ entry.original }}" width=100% />
+			</div>
+		</div>
+		</a>
+		
+		<a href="http://www.google.com" target="_blank">
+		<div id="container">
+			<div class="transparency">&nbsp;</div>
+			<b>largesquare</b>
+			<div class="content">
+			<img src= "{{ entry.largesquare }}" width=100% />
+			</div>
+		</div>
+		</a>
+	{% endif %}
+	
+	{%if not forloop.first %}
+		<a href="http://www.google.com" target="_blank">
+		<div id="container">
+			<div class="transparency">&nbsp;</div>
+			<b>Original</b>
+			<div class="content">
+			<img src= "{{ entry.original }}" width=100% />
+			</div>
+		</div>
+		</a>
+	{% endif%}
+	
+{% endfor %}
+
+
+</body>
+</html>

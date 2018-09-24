@@ -1,0 +1,34 @@
+<!--
+
+This template is used by the composite manager home page.
+It loads the CSS from directly from our backend
+
+ -->
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>{{ title }}</title>
+<link rel="stylesheet" type="text/css" href="artist/static/css/main.css" media="all" />
+
+
+
+</head>
+<body>
+<b>User: {{ user }} <a href={{ logoutUrl }} target="_self">Sign Out</a><br/><hr/></b>
+<h1>{{ title }}</h1>
+{% for entry in urls %}
+<b><a href={{ entry.url }}>{{ entry.name }}</a></b><br/>
+{% endfor %}
+<a href="http://www.groovebug.com"><img src="http://backendgroovebug.appspot.com/htmlimages/groovebugicon.png"/></a>
+
+
+
+
+</body>
+</html>

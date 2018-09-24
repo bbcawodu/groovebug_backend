@@ -1,0 +1,109 @@
+<!--
+
+This template is used by the artist news handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Groovebug News</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+</head>
+<body>
+<br>
+<font SIZE="+3"><b>Groovebug News Work  </b></font>
+<br><br>
+{% if artist %}
+<font SIZE="+2"><b>{{ artist }}</b></font>
+<br><br>
+{% endif %}
+<form name='searchform' action='/artist/newswork' method='get'>
+<font>Enter an artist to search for: <input type='text' name='artist'></font>
+  <input type='submit' value='Search'>
+</form>
+{% if error %}
+<div class="container news">
+<div class="transparency">&nbsp;</div>	
+	
+<b> {{ error|urlize|linebreaksbr }} </b>	
+	
+</div>
+{% endif %}
+{% if newsItems %}
+	{% for entry in newsItems %}
+		<div class="container news" style="margin:auto; width:50%;">
+		<div class="transparency">&nbsp;</div>
+		
+		{% if entry.promoted %}
+		<font COLOR="#FFFFFF"><U><b> Promoted Item </b></U></font><br/>
+		{% endif%}
+		<a href={{entry.url}} target="_blank">
+		<b> {{entry.title}} </b>
+		{% if entry.date %}
+			<br/><b> {{entry.date}} </b><br/>
+		{% else %}
+			<br/><b> Date not available </b><br/>
+		{% endif%}
+		{% if entry.articleSource %}
+			<b>From: {{entry.articleSource}}</b><br/>
+		{% endif %}
+		<br/>{{entry.summary}}
+		<br/><b> Tap for full story</b>
+		</a>
+		{% if entry.promoted %}
+		<form name='newsDelete' action='/artist/newsredirect' method=post ENCTYPE="multipart/form-data">
+		<input type=hidden name='artistName' value="{{artist}}">
+		<input type=hidden name='artistEnc' value={{artistEnc}}>
+		<input type=hidden name='title' value="{{entry.title}}">
+		<button type=submit name='deleteNews' value={{entry.key}}>Delete Item</button>
+		</form>
+		{% else %}
+		<form name='newsExclude' action='/artist/newsredirect' method=post ENCTYPE="multipart/form-data">
+		<input type=hidden name='artistName' value="{{artist}}">
+		<input type=hidden name='artistEnc' value={{artistEnc}}>
+		<input type=hidden name='title' value="{{entry.title}}">
+		<button type=submit name='excludeNews' value={{entry.url}}>Exclude Item</button>
+		</form>
+		{% endif%}
+		</div>
+			
+	{% endfor %}
+	
+{% endif %}
+{% if artist %}
+<div class="container news">
+<div class="transparency">&nbsp;</div>
+<form name='newsadd' action='/artist/newsredirect' method=post ENCTYPE="multipart/form-data">
+<b> Add News Item </b><br/>
+All Fields Are Required<br/><br/>
+<input type=hidden name='artistName' value="{{artist}}">
+<input type=hidden name='artistEnc' value={{artistEnc}}>
+Title: <input type='text' name='newstitle'>
+<br/>
+Date: <INPUT TYPE='text' NAME="newsdate">
+<br/>
+Source: <INPUT TYPE='text' NAME="newssource">
+<br>
+Summary:
+<br/>
+ <textarea name="newsTxt" rows="10" cols="80"></textarea>
+<br/>
+URL: <INPUT TYPE='text' NAME="newsurl">
+<br/>
+<button type=submit name='addNews' value='addNews'>Add News</button>
+	
+</form>
+</div>
+{% endif %}
+
+
+</body>
+</html>

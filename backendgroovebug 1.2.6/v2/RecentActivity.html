@@ -1,0 +1,76 @@
+<!--
+
+This template is used by the artist news handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Facebook Groovebug Recent Activity</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+{% if groovebugIcon %}
+<style type="text/css">
+.recentactivity {
+    background: transparent url('{{groovebugIcon}}') no-repeat 99% 50%;
+}
+</style>
+{% endif%}
+
+
+
+
+</head>
+
+
+
+<body>
+{% if recentActivity %}
+	{% for entry in recentActivity %}
+		<a href={{entry.url}} target="_blank">
+		<div class="container recentactivity">
+		<div class="transparency">&nbsp;</div>
+		
+		
+		<a href="http://www.facebook.com/{{entry.from.id}}" target="_blank"><b>{{entry.from.name}}</b></a>
+		{% if entry.date %}
+			<br/><b> {{entry.date}} </b><br/>
+		{% else %}
+			<br/><b> Date not available </b><br/>
+		{% endif%}
+		
+		{% if entry.link %}
+			<br/><b> {{entry.linkName}} </b><br/>
+			<a href="{{entry.link}}" target="_blank"><img src="{{entry.linkPreview}}"/></a>
+		{% endif%}
+		<br/>{{entry.text}}
+		
+		
+		
+		</div>
+		</a>	
+	{% endfor %}
+{% else %}
+	<div class="container news">
+	<div class="transparency">&nbsp;</div>
+	
+	
+	
+	<b> {{ error|urlize|linebreaksbr }} </b>
+	
+	
+	
+	</div>
+{% endif %}
+
+
+
+</body>
+</html>

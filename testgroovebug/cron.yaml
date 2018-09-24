@@ -1,0 +1,16 @@
+cron:
+- description: hourly corrected artist crawler
+  url: /v1/correctedartistcrawler
+  schedule: every 60 mins
+  
+- description: hourly similar artist crawler
+  url: /v1/similarartistcrawler
+  schedule: every 60 mins
+  
+- description: hourly news crawler
+  url: /v1/newscrawler
+  schedule: every 60 mins
+  
+- description: hourly bio crawler
+  url: /v1/biocrawler
+  schedule: every 60 mins

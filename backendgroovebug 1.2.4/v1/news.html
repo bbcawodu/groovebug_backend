@@ -1,0 +1,67 @@
+<!--
+
+This template is used by the artist news handler.
+It loads the CSS from directly from our backend
+
+ -->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+
+
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>Groovebug News</title>
+<link rel="stylesheet" type="text/css" href="static/css/main.css" media="all" />
+
+
+
+</head>
+
+
+
+<body>
+{% if newsItems %}
+	{% for entry in newsItems %}
+		<a href={{entry.url}} target="_blank">
+		<div class="container news">
+		<div class="transparency">&nbsp;</div>
+		
+		
+		<b> {{entry.title}} </b>
+		{% if entry.date %}
+			<br/><b> {{entry.date}} </b><br/>
+		{% else %}
+			<br/><b> Date not available </b><br/>
+		{% endif%}
+		{% if entry.articleSource %}
+			<b>From: {{entry.articleSource}}</b><br/>
+		{% endif %}
+		<br/>{{entry.summary}}
+		<br/><b> Tap for full story</b>
+		
+		
+		
+		</div>
+		</a>	
+	{% endfor %}
+{% else %}
+	<div class="container news">
+	<div class="transparency">&nbsp;</div>
+	
+	
+	
+	<b> {{ error|urlize|linebreaksbr }} </b>
+	
+	
+	
+	</div>
+{% endif %}
+
+
+
+</body>
+</html>
